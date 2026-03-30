@@ -92,12 +92,13 @@ export function useCases() {
     }
   };
 
-  const addFileToCase = async (caseId: string, file: File) => {
+  const addFileToCase = async (caseId: string, file: File, folderName?: string) => {
     const newFile: CaseFile = {
       id: uuidv4(),
       name: file.name,
       extractedText: `This is simulated extracted text from ${file.name}.\n\nIt contains legal jargon, dates, and names relevant to the case. The document outlines specific clauses and liabilities that need to be reviewed carefully.`,
       uploadedAt: new Date().toISOString(),
+      folderName,
     };
 
     setCases((prev) =>
@@ -112,6 +113,9 @@ export function useCases() {
       const formData = new FormData();
       formData.append('case_id', caseId);
       formData.append('file', file);
+      if (folderName) {
+        formData.append('folder_name', folderName);
+      }
 
       await fetch('https://n8n.srv843245.hstgr.cloud/webhook-test/5c041d26-96e3-4ede-8b68-e17702d10ff9', {
         method: 'POST',
