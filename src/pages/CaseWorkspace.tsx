@@ -103,7 +103,7 @@ export default function CaseWorkspace() {
 
   const handleUploadConfirm = () => {
     if (fileToUpload && currentCase) {
-      const folderName = currentCase.folders?.[0];
+      const folderName = currentCase.folders?.join(', ') || '';
       addFileToCase(currentCase.id, fileToUpload, folderName);
       setFileToUpload(null);
       setIsUploadDialogOpen(false);
