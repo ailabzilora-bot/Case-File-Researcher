@@ -1,0 +1,5 @@
+{
+  "name": "Case File Researcher",
+  "description": "A legal-tech workspace tool for managing cases, uploading files, and generating AI summaries.",
+  "requestFramePermissions": []
+}
