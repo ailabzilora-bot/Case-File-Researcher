@@ -31,7 +31,6 @@ export default function CaseWorkspace() {
   const [viewingFile, setViewingFile] = useState<CaseFile | null>(null);
   const [isUploadDialogOpen, setIsUploadDialogOpen] = useState(false);
   const [fileToUpload, setFileToUpload] = useState<File | null>(null);
-  const [uploadFolder, setUploadFolder] = useState<string>('');
   const fileInputRef = useRef<HTMLInputElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -104,9 +103,9 @@ export default function CaseWorkspace() {
 
   const handleUploadConfirm = () => {
     if (fileToUpload && currentCase) {
-      addFileToCase(currentCase.id, fileToUpload, uploadFolder || undefined);
+      const folderName = currentCase.folders?.[0];
+      addFileToCase(currentCase.id, fileToUpload, folderName);
       setFileToUpload(null);
-      setUploadFolder('');
       setIsUploadDialogOpen(false);
     }
   };
@@ -588,21 +587,6 @@ export default function CaseWorkspace() {
                 <FileText className="h-4 w-4 text-slate-500" />
                 <span className="truncate flex-1 font-medium">{fileToUpload.name}</span>
                 <span className="text-xs text-slate-400">{(fileToUpload.size / 1024).toFixed(1)} KB</span>
-              </div>
-            )}
-            {currentCase.folders && currentCase.folders.length > 0 && (
-              <div className="space-y-1.5">
-                <label className="text-sm font-medium text-slate-700">Folder (optional)</label>
-                <select
-                  value={uploadFolder}
-                  onChange={(e) => setUploadFolder(e.target.value)}
-                  className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-purple-300"
-                >
-                  <option value="">No folder</option>
-                  {currentCase.folders.map((f) => (
-                    <option key={f} value={f}>{f}</option>
-                  ))}
-                </select>
               </div>
             )}
           </div>
