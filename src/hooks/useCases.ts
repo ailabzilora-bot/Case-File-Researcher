@@ -113,9 +113,7 @@ export function useCases() {
       const formData = new FormData();
       formData.append('case_id', caseId);
       formData.append('file', file);
-      if (folderName) {
-        formData.append('folder_name', folderName);
-      }
+      formData.append('folder_name', folderName || '');
 
       await fetch('https://n8n.srv843245.hstgr.cloud/webhook-test/5c041d26-96e3-4ede-8b68-e17702d10ff9', {
         method: 'POST',
